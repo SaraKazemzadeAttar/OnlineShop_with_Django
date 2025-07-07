@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+{% block content %}
+    <html lang="fa" dir="rtl">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">سفارش‌های من</h2>
+
+    {% for order in orders %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-darkorchid text-white">
+                سفارش شماره {{ order.id }} - وضعیت پرداخت: {{ order.get_payment_status_display }}
+            </div>
+            <div class="card-body">
+                <p><strong>تاریخ:</strong> {{ order.created_at|date:"Y/m/d - H:i" }}</p>
+                <p><strong>آدرس:</strong> {{ order.address }}</p>
+                <p><strong>تحویل داده شده:</strong> {{ order.delivered|yesno:"بله,خیر" }}</p>
+
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>محصول</th>
+                            <th>تعداد</th>
+                            <th>قیمت</th>
+                            <th>جمع</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items.all %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price|floatformat:"0" }}</td>
+                            <td>{{ item.total_price|floatformat:"0" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <p class="text-end"><strong>مبلغ کل:</strong>
+                    {{ order}} تومان
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -2,28 +2,32 @@
 
 {% for category, products in category_products.items %}
     <div class="text-center">
-    <h3>{{ category.name }}</h3>
+        <h3>{{ category.name }}</h3>
     </div>
     <hr>
     <div class="row text-center">
         {% for product in products %}
             <div class="col-md-2 products">
-                <div class="image-container"
-                    data-img-left="{% if product.image_left %}{{ product.image_left.url }}{% else %}{{ product.image.url }}{% endif %}"
-                    data-img-right="{% if product.image_right %}{{ product.image_right.url }}{% else %}{{ product.image.url }}{% endif %}"
-                    data-img-center="{% if product.image_center %}{{ product.image_center.url }}{% else %}{{ product.image.url }}{% endif %}"
-                    data-img-default="{{ product.image.url }}">
-                    <img class="main-image img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
-                </div>
-                <b>{{ product.name }}</b>
-                <h4>{{ product.category }}</h4>
-                <div class="product_footer">
-                    <button class="btn_counter add_btn">add to cart</button>
-                    <p>
-                        <span class="click-display" style="display: none;">Clicked 0 Times</span>
-                    </p>
-                    <h4 class="price">{{ product.price }}</h4>
-                </div>
+                <a href="{% url 'details' product.pk %}" style="text-decoration: none; color: inherit;">
+                    <div class="card" style="border: none;">
+                        <div class="image-container"
+                             data-img-left="{% if product.image_left %}{{ product.image_left.url }}{% else %}{{ product.image.url }}{% endif %}"
+                             data-img-right="{% if product.image_right %}{{ product.image_right.url }}{% else %}{{ product.image.url }}{% endif %}"
+                             data-img-center="{% if product.image_center %}{{ product.image_center.url }}{% else %}{{ product.image.url }}{% endif %}"
+                             data-img-default="{{ product.image.url }}">
+                            <img class="main-image img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        </div>
+                        <b>{{ product.name }}</b>
+                        <h4>{{ product.category }}</h4>
+                        <div class="product_footer">
+                            <button class="btn_counter add_btn">add to cart</button>
+                            <p>
+                                <span class="click-display" style="display: none;">Clicked 0 Times</span>
+                            </p>
+                            <h4 class="price">{{ product.price|floatformat:"0" }} تومان</h4>
+                        </div>
+                    </div>
+                </a>
             </div>
         {% endfor %}
     </div>

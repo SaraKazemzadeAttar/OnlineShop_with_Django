@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<div class="auth-form-container">
+    <h2>ورود / ثبت‌نام</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-auth mt-3" value="تایید">
+    </form>
+</div>
+{% endblock %}
