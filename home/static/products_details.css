@@ -32,10 +32,12 @@
     padding: 10px 25px;
     border-radius: 6px;
     font-size: 16px;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .add-to-cart:hover{
     background-color: darkorchid;
+    transform: scale(1.05);
 }
 
 .auth-form-container {
@@ -64,4 +66,14 @@
 }
 .btn-auth:hover {
     background-color: mediumorchid;
+}
+body {
+    font-family: 'Poppins', 'Vazirmatn', sans-serif;
+    background-color: #f9f4fc;
+}
+
+
+.product-container {
+    background: linear-gradient(to bottom right, #ffffff, #f3e6f9);
+    border-radius: 12px;
 }

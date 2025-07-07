@@ -11,19 +11,18 @@
     <link rel="stylesheet" href="{% static 'products_details.css' %}">
 </head>
 <body>
-
-<div class="container product-container">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+<div class="container product-container py-5">
+    <div class="row align-items-center shadow rounded p-4" style="background: #fff;">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid rounded shadow-sm">
         </div>
         <div class="col-md-6">
             <div class="product-info">
-                <h2>{{ product.name }}</h2>
+                <h2 class="mb-3" style="color: mediumorchid;">{{ product.name }}</h2>
                 <p><strong>دسته‌بندی:</strong> {{ product.category.name }}</p>
-                <p>{{ product.description|linebreaks }}</p>
-                <p class="price">{{ product.price|floatformat:"0" }} تومان</p>
-                <a href="{% url 'cart' %}" class="btn btn-primary add-to-cart">افزودن به سبد خرید</a>
+                <p class="text-muted">{{ product.description|linebreaks }}</p>
+                <p class="price h4 mt-3 mb-4" style="color: #8B3FA7;">{{ product.price|floatformat:"0" }} تومان</p>
+                <a href="{% url 'cart' %}" class="btn add-to-cart px-4 py-2">افزودن به سبد خرید</a>
             </div>
         </div>
     </div>
