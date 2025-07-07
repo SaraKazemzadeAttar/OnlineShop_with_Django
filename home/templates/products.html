@@ -1,7 +1,9 @@
 {% load static %}
 
 {% for category, products in category_products.items %}
+    <div class="text-center">
     <h3>{{ category.name }}</h3>
+    </div>
     <hr>
     <div class="row text-center">
         {% for product in products %}
