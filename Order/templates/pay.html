@@ -1,13 +1,15 @@
 {%  extends 'index.html' %}
 {% block content %}
-    <html dir="rtl">
-<div class="container text-center mt-5">
-    <h2 class="text-success mb-4">خرید شما با موفقیت انجام شد</h2>
-    <p>سفارش شماره: <strong>{{ order.id }}</strong></p>
-    <p>مبلغ کل: <strong>{{ order.total_price|floatformat:"0" }} تومان</strong></p>
-    <p>زمان ثبت سفارش: {{ order.created_at|date:"Y/m/d - H:i" }}</p>
+    <html lang="fa" dir="rtl">
+    
+<div class="container mt-4">
+    <h3>پرداخت سفارش #{{ order.id }}</h3>
+    <p>مبلغ قابل پرداخت: {{ order.total_price }} تومان</p>
 
-    <a href="{% url 'cart' %}" class="btn btn-outline-primary mt-3">مشاهده سبد خرید</a>
-    <a href="{% url 'home' %}" class="btn btn-primary mt-3">بازگشت به صفحه اصلی</a>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">پرداخت</button>
+    </form>
 </div>
-{% endblock %}</html>
+{% endblock %}
+</html>

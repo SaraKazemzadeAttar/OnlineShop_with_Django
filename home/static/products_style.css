@@ -27,14 +27,6 @@
     left: 20px;
 }
 
-.add_btn {
-    border: 1px white solid;
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-}
-
-
 .products {
     border: 1px solid #ccc;
     padding: 10px;
@@ -69,7 +61,7 @@
 }
 .glide__arrow {
   background-color: white; 
-  color: #3fb6ac;          
+  color: mediumorchid;
   border: none;
   cursor: pointer;
   font-weight: bold;
@@ -80,7 +72,7 @@
 }
 
 .glide__arrow:hover {
-  background-color: rgb(4, 110, 105);  
+  background-color: darkorchid;
   color: white;                      
 }
 
@@ -89,7 +81,7 @@
   margin-top: 1rem;
 }
 .glide__bullet {
-  background-color: #3fb6ac; 
+  background-color: mediumorchid;
   border: none;
   width: 12px;
   height: 12px;
@@ -103,5 +95,5 @@
 
 .glide__bullet:hover,
 .glide__bullet.glide__bullet--active {
-  background-color: rgb(4, 110, 105); 
+  background-color: darkorchid;
 }

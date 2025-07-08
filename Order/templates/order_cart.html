@@ -1,49 +1,26 @@
 {% extends 'index.html' %}
+{% load static %}
 {% block content %}
-    <html lang="fa" dir="rtl">
-<div class="container mt-5">
+<link rel="stylesheet" href="{% static 'order_style.css' %}">
+
+<div class="container mt-5" dir="rtl">
     <h2 class="text-center mb-4">سفارش‌های من</h2>
 
-    {% for order in orders %}
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-darkorchid text-white">
-                سفارش شماره {{ order.id }} - وضعیت پرداخت: {{ order.get_payment_status_display }}
-            </div>
-            <div class="card-body">
-                <p><strong>تاریخ:</strong> {{ order.created_at|date:"Y/m/d - H:i" }}</p>
-                <p><strong>آدرس:</strong> {{ order.address }}</p>
-                <p><strong>تحویل داده شده:</strong> {{ order.delivered|yesno:"بله,خیر" }}</p>
-
-<table class="table table-bordered table-hover align-middle text-center shadow-sm rounded">
-    <thead class="table-dark">
-        <tr>
-            <th scope="col">محصول</th>
-            <th scope="col">تعداد</th>
-            <th scope="col">قیمت واحد (تومان)</th>
-            <th scope="col">جمع کل</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in order.items.all %}
-        <tr>
-            <td class="d-flex align-items-center gap-2">
-                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="60" height="60" class="rounded shadow-sm border">
-                <span>{{ item.product.name }}</span>
-            </td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price|floatformat:"0" }}</td>
-            <td class="fw-bold text-success">{{ item.total_price|floatformat:"0" }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-
-                <p class="text-end"><strong>مبلغ کل:</strong>
-                {{ order.total_price|floatformat:"0"}} تومان
-            </div>
-        </div>
+    {% if pending_orders %}
+    <h4 class="text-center mb-4 colored_title">🕒 سفارش‌های در انتظار پرداخت</h4>
+    {% for order in pending_orders %}
+        {% include 'user_order.html' with order=order %}
     {% endfor %}
- <a href="{% url 'finalize_order' %}" class="btn btn-success mt-2">ثبت نهایی سفارش</a>
+    {% endif %}
+
+    {% if paid_orders %}
+    <h4 class="text-center mb-4 colored_title">✅ سفارش‌های پرداخت‌شده</h4>
+    {% for order in paid_orders %}
+        {% include 'user_order.html' with order=order %}
+    {% endfor %}
+    {% endif %}
+
+    <a href="{% url 'finalize_order' %}" class="btn btn-success mt-4">ثبت نهایی </a>
+
 </div>
 {% endblock %}

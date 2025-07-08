@@ -36,8 +36,15 @@ def add_to_cart(request, product_id):
 
 @login_required
 def order_list_view(request):
-    orders = Order.objects.filter(user=request.user, delivered=False).order_by('-created_at')
-    return render(request, 'order_cart.html', {'orders': orders})
+    all_orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+    paid_orders = all_orders.filter(payment_status='paid')
+    pending_orders = all_orders.exclude(payment_status='paid')  # pending or failed
+
+    return render(request, 'order_cart.html', {
+        'paid_orders': paid_orders,
+        'pending_orders': pending_orders
+    })
 
 @login_required
 def finalize_order(request):
@@ -63,5 +70,13 @@ def finalize_order(request):
 @login_required
 def order_complete_view(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
+
+    if request.method == 'POST':
+        order.payment_status = 'paid'
+        order.save()
+        return render(request, 'payment_success.html', {'order': order})
+
+
     return render(request, 'pay.html', {'order': order})
+
 
