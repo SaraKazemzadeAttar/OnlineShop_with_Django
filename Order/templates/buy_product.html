@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block content %}
+    <html lang="fa" dir="rtl">
+<div class="container mt-5 d-flex justify-content-center">
+
+    <div class="card shadow" style="width: 25rem">
+        <div class="row g-0">
+            <div class="col-4">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+            </div>
+            <div class="col-8">
+                <div class="card-body">
+                    <h6 class="card-title text-success"> به سبد خرید اضافه شد</h6>
+                    <p class="card-text mb-2">{{ product.name }}</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-sm btn-outline-success w-100 mt-2">افزودن مجدد</button>
+                    </form>
+
+                    <a href="{% url 'cart' %}" class="btn btn-sm btn-primary w-100 mt-2">مشاهده سبد خرید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+</html>

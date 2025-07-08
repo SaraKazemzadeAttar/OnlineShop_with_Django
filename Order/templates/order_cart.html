@@ -14,32 +14,36 @@
                 <p><strong>آدرس:</strong> {{ order.address }}</p>
                 <p><strong>تحویل داده شده:</strong> {{ order.delivered|yesno:"بله,خیر" }}</p>
 
-                <table class="table table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>محصول</th>
-                            <th>تعداد</th>
-                            <th>قیمت</th>
-                            <th>جمع</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in order.items.all %}
-                        <tr>
-                            <td>{{ item.product.name }}</td>
-                            <td>{{ item.quantity }}</td>
-                            <td>{{ item.price|floatformat:"0" }}</td>
-                            <td>{{ item.total_price|floatformat:"0" }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+<table class="table table-bordered table-hover align-middle text-center shadow-sm rounded">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">محصول</th>
+            <th scope="col">تعداد</th>
+            <th scope="col">قیمت واحد (تومان)</th>
+            <th scope="col">جمع کل</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.items.all %}
+        <tr>
+            <td class="d-flex align-items-center gap-2">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="60" height="60" class="rounded shadow-sm border">
+                <span>{{ item.product.name }}</span>
+            </td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price|floatformat:"0" }}</td>
+            <td class="fw-bold text-success">{{ item.total_price|floatformat:"0" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 
                 <p class="text-end"><strong>مبلغ کل:</strong>
-                    {{ order}} تومان
-                </p>
+                {{ order.total_price|floatformat:"0"}} تومان
             </div>
         </div>
     {% endfor %}
+ <a href="{% url 'finalize_order' %}" class="btn btn-success mt-2">ثبت نهایی سفارش</a>
 </div>
 {% endblock %}

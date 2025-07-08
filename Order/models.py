@@ -16,6 +16,9 @@ class Order(models.Model):
     def __str__(self):
         return f"Order #{self.id} by {self.user.username}"
 
+    @property
+    def total_price(self):
+        return sum(item.price * item.quantity for item in self.items.all())
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
@@ -26,19 +29,6 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.quantity} x {self.product.name} in Order #{self.order.id}"
 
-@property
-def total_price(self):
-    return self.price * self.quantity
-
-def add_product(self, product, quantity=1):
-    item, created = OrderItem.objects.get_or_create(cart=self, product=product)
-    if not created:
-        item.quantity += quantity
-    else:
-        item.quantity = quantity
-    item.save()
-
-def remove_item(self, item_id):
-    item = self.items.filter(id=item_id).first()
-    if item:
-        item.delete()
+    @property
+    def total_price(self):
+        return self.price * self.quantity

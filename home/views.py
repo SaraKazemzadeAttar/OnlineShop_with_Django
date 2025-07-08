@@ -1,13 +1,14 @@
 from collections import defaultdict
 from django.views.generic import TemplateView
-from .models import Product, Category, Banner
+from .models import Product, Category, Banner , UserProfile
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from django.contrib.auth.views import LoginView , LogoutView
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm , UserChangeForm
 from django.views.generic.base import TemplateView
-from django.shortcuts import render
-from .forms import UserInfoForm
+from django.shortcuts import render , redirect
+from .forms import UserInfoForm , UserProfileForm , CustomUserForm
+from django.contrib.auth.decorators import login_required
 class HomeView(TemplateView):
     template_name = 'home.html'
 
@@ -55,3 +56,23 @@ class SignupInterfaceView(TemplateView):
             cleaned_data = form.cleaned_data
             return render(request, 'home.html', {'data': cleaned_data})
         return render(request, self.template_name, {'form': form})
+
+@login_required
+def profile_view(request):
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        user_form = CustomUserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('profile')
+    else:
+        user_form = CustomUserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=profile)
+
+    return render(request, 'profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })

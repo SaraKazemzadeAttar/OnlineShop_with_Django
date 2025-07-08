@@ -9,6 +9,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    address = models.TextField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
@@ -31,4 +35,3 @@ class Banner(models.Model):
 
     def __str__(self):
         return f"Banner {self.id}"
-

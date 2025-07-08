@@ -22,7 +22,12 @@
                 <p><strong>دسته‌بندی:</strong> {{ product.category.name }}</p>
                 <p class="text-muted">{{ product.description|linebreaks }}</p>
                 <p class="price h4 mt-3 mb-4" style="color: #8B3FA7;">{{ product.price|floatformat:"0" }} تومان</p>
-                <a href="{% url 'cart' %}" class="btn add-to-cart px-4 py-2">افزودن به سبد خرید</a>
+                <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <a href="{% url 'add_to_cart' product.id %}" class="btn add-to-cart px-4 py-2">افزودن به سبد خرید</a>
+                    <a href="{% url 'cart' %}" class="btn btn-outline-primary mt-2">مشاهده سبد خرید</a>
+            </form>
             </div>
         </div>
     </div>
