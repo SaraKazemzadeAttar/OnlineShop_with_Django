@@ -9,6 +9,7 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import render , redirect
 from .forms import UserInfoForm , UserProfileForm , CustomUserForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 class HomeView(TemplateView):
     template_name = 'home.html'
 
@@ -53,9 +54,9 @@ class SignupInterfaceView(TemplateView):
     def post(self, request, *args, **kwargs):
         form = UserInfoForm(request.POST)
         if form.is_valid():
-            cleaned_data = form.cleaned_data
-            return render(request, 'home.html', {'data': cleaned_data})
-        return render(request, self.template_name, {'form': form})
+
+            messages.success(request, "ثبت نام با موفقیت انجام شد!")
+            return redirect('home')
 
 @login_required
 def profile_view(request):
