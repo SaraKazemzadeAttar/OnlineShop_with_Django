@@ -5,6 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from django.contrib.auth.views import LoginView , LogoutView
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.base import TemplateView
+from django.shortcuts import render
+from .forms import UserInfoForm
 class HomeView(TemplateView):
     template_name = 'home.html'
 
@@ -39,5 +42,16 @@ class LogoutInterfaceView(LogoutView):
     template_name = 'logout.html'
 
 class SignupInterfaceView(TemplateView):
-    form_class = UserCreationForm
     template_name = 'register.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UserInfoForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = UserInfoForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            return render(request, 'home.html', {'data': cleaned_data})
+        return render(request, self.template_name, {'form': form})

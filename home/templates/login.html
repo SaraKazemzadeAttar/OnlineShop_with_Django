@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="auth-form-container">
-    <h2>ورود / ثبت‌نام</h2>
+    <h2>ورود</h2>
     <form method="POST" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
