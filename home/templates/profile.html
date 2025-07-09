@@ -1,26 +1,33 @@
 {% extends 'index.html' %}
 {% block content %}
-    <html lang="fa" dir="rtl">
-<div class="container mt-4">   
-  <h3>ویرایش حساب کاربری</h3>
-  <form method="post">
+<div class="container mt-5" dir="rtl" lang="fa">
+  <h3 class="mb-4 text-center">ویرایش حساب کاربری</h3>
+
+  <form method="post" class="needs-validation" novalidate>
     {% csrf_token %}
-    <div class="row">
+    <div class="row g-4">
+      
       <div class="col-md-6">
-        <h5>مشخصات کاربر</h5>
-        {{ user_form.as_p }}
+        <div class="card shadow-sm p-4 h-100">
+          <h5 class="card-title mb-3">مشخصات کاربر</h5>
+          {{ user_form.as_p }}
+        </div>
       </div>
+      
       <div class="col-md-6">
-        <h5>اطلاعات تماس</h5>
-        {{ profile_form.as_p }}
+        <div class="card shadow-sm p-4 h-100">
+          <h5 class="card-title mb-3">اطلاعات تماس</h5>
+          {{ profile_form.as_p }}
+        </div>
       </div>
+
     </div>
-    <button type="submit" class="btn btn-primary mt-3">ذخیره تغییرات</button>
-    <a href="{% url 'change_password' %}" class="btn btn-outline-warning mt-3 ms-2">تغییر رمز عبور</a>
+
+    <div class="mt-4 d-flex flex-wrap justify-content-center gap-3">
+      <button type="submit" class="btn btn-primary px-4">ذخیره تغییرات</button>
+      <a href="{% url 'change_password' %}" class="btn btn-outline-warning px-4">تغییر رمز عبور</a>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary px-4">بازگشت به صفحه اصلی</a>
+    </div>
   </form>
-<div>
-    <a href="{% url 'home' %}" class="btn btn-outline-warning mt-3 ms-2">بازگشت به صفحه اصلی</a>
 </div>
-</div>
-{% endblock %}   
-</html>
+{% endblock %}

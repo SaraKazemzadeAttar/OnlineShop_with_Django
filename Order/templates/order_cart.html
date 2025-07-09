@@ -4,23 +4,25 @@
 <link rel="stylesheet" href="{% static 'order_style.css' %}">
 
 <div class="container mt-5" dir="rtl">
-    <h2 class="text-center mb-4">سفارش‌های من</h2>
+    <h2 class="text-center mb-4">سفارش من</h2>
 
-    {% if pending_orders %}
-    <h4 class="text-center mb-4 colored_title">🕒 سفارش‌های در انتظار پرداخت</h4>
-    {% for order in pending_orders %}
-        {% include 'user_order.html' with order=order %}
-    {% endfor %}
+
+    {% if pending_order %}
+        <h4 class="text-center mb-4 colored_title">🕒 سفارش در انتظار پرداخت</h4>
+        {% include 'user_order.html' with order=pending_order %}
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary px-4">افزودن به لیست</a>
+            <a href="{% url 'finalize_order' %}" class="btn btn-success px-4">ثبت نهایی</a>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">هنوز سفارشی ثبت نکرده‌اید.</p>
+        <div class="text-center">
+            <a href="{% url 'home' %}" class="btn btn-primary">بازگشت به فروشگاه</a>
+        </div>
+        <h4 class="text-center mb-4 colored_title mt-5">📦 سفارش‌های قبلی</h4>
+        {% for order in paid_orders %}
+            {% include 'user_order.html' with order=order %}
+        {% endfor %}
     {% endif %}
-
-    {% if paid_orders %}
-    <h4 class="text-center mb-4 colored_title">✅ سفارش‌های پرداخت‌شده</h4>
-    {% for order in paid_orders %}
-        {% include 'user_order.html' with order=order %}
-    {% endfor %}
-    {% endif %}
-
-    <a href="{% url 'finalize_order' %}" class="btn btn-success mt-4">ثبت نهایی </a>
-
 </div>
 {% endblock %}

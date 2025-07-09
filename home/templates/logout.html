@@ -1,4 +1,14 @@
 {% extends 'index.html' %}
 {% block content %}
-
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login_logout_style.css' %}">
+<div class="container auth-form-container" onclick="" dir="rtl">
+  <div class="top"></div>
+  <div class="bottom"></div>
+  <div class="center">
+  <p>به امید دیدار  
+  </p>
+          <a href="{% url 'home' %}">بازگشت</a>
+  </div>
+</div>
 {% endblock %}

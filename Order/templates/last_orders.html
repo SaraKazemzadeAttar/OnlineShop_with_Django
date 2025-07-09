@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'order_style.css' %}">
+
+<div class="container mt-5" dir="rtl">
+    <h2 class="text-center mb-4">سفارش های من</h2>
+{% for order in paid_orders %}
+    {% include 'user_order.html' with order=order %}
+{% endfor %}
+</div>
+{% endblock %}

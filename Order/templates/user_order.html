@@ -42,9 +42,9 @@
         <p class="order-total mt-3">💰 مبلغ کل: {{ order.total_price|floatformat:"0" }} تومان</p>
 
         {% if order.payment_status == 'pending' %}
-        <div class="text-end mt-2">
-            <a href="{% url 'order_complete' order.id %}" class="btn btn-outline-primary btn-sm">پرداخت سفارش</a>
-        </div>
+            <div class="text-end mt-2">
+                <a href="{% url 'order_complete' order.id %}" class="btn btn-outline-primary btn-sm">پرداخت سفارش</a>
+            </div>
         {% endif %}
     </div>
 </div>

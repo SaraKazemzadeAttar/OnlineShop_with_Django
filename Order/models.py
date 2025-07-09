@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from home.models import Product
+from datetime import timedelta
 
 class Order(models.Model):
     user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)

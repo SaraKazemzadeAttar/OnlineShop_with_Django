@@ -1,12 +1,23 @@
 {% extends 'index.html' %}
+{% block content %}
 {% load static %}
-{% block content %}   
-<html lang="fa" dir="rtl">
-<form method="POST">
-  {% csrf_token %}
-    {{form.as_p}}
-  <p>This action cant' be undone</p>
-  <input type="submit" class="btn btn-secondary" name="submit" />
-</form>
+<link rel="stylesheet" href="{% static 'login_logout_style.css' %}">
+
+<div class="container auth-form-container" onclick="">
+  <div class="top"></div>
+  <div class="bottom"></div>
+  <div class="center">
+    <h2>ثبت نام</h2>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-auth mt-3" value="ثبت نام">
+    </form>
+
+    <p class="signup-text mt-3">
+      قبلا حساب دارید؟ 
+      <a href="{% url 'login' %}">وارد شوید</a>
+    </p>
+  </div>
+</div>
 {% endblock %}
-</html>

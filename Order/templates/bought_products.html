@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'order_style.css' %}">
+
+<div class="container mt-5" dir="rtl">
+    <h2 class="text-center mb-4">سفارش‌های من</h2>
+
+    {% if paid_orders %}
+    <h4 class="text-center mb-4 colored_title">✅ سفارش‌های پرداخت‌شده</h4>
+    {% for order in paid_orders %}
+        {% include 'user_order.html' with order=order %}
+    {% endfor %}
+    {% endif %}
+
+    <a href="{% url 'finalize_order' %}" class="btn btn-success mt-4">ثبت نهایی </a>
+
+</div>
+{% endblock %}

@@ -1,14 +1,24 @@
 {% extends 'index.html' %}
 {% block content %}
 {% load static %}
-        <html lang="fa" dir="rtl">
-<div class="auth-form-container">
+<link rel="stylesheet" href="{% static 'login_logout_style.css' %}">
+
+<div class="container auth-form-container" onclick="" dir="rtl">
+  <div class="top"></div>
+  <div class="bottom"></div>
+  <div class="center">
     <h2>ورود</h2>
     <form method="POST" novalidate>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-auth mt-3" value="تایید">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-auth mt-3" value="تایید" >
     </form>
+          <p class="signup-text mt-3">
+      حساب ندارید؟ 
+      <a href="{% url 'signup' %}">ثبت نام کنید</a>
+    </p>
+
+  </div>
+
 </div>
 {% endblock %}
-</html>
